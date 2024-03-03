@@ -10,6 +10,10 @@ const runner            = require('./test-runner');
 
 const app = express();
 
+// use framegard. Default: SAMEORIGIN.
+const frameguard = require("frameguard");
+app.use(frameguard({ action: 'sameorigin' }));
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
@@ -36,7 +40,7 @@ app.route('/')
 //For FCC testing purposes
 fccTestingRoutes(app);
 
-//Routing for API 
+//Routing for API
 apiRoutes(app);
 
 //404 Not Found Middleware
