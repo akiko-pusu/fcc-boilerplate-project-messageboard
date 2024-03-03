@@ -11,6 +11,7 @@
 		"chai": "^4.2.0",
 		"chai-http": "^4.4.0",
 		"cors": "^2.8.1",
+		"dns-prefetch-control": "^0.3.0",
 		"dotenv": "^8.2.0",
 		"express": "^4.14.0",
 		"frameguard": "^4.0.0",

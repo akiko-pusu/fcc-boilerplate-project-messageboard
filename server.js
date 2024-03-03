@@ -14,6 +14,12 @@ const app = express();
 const frameguard = require("frameguard");
 app.use(frameguard({ action: 'sameorigin' }));
 
+// use 'dns-prefetch-control' instead of helmet.dnsPrefetchControl().
+const dnsPrefetchControl = require("dns-prefetch-control");
+
+// Set X-DNS-Prefetch-Control: off
+app.use(dnsPrefetchControl());
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
