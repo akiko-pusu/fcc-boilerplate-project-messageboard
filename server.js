@@ -3,6 +3,7 @@ require('dotenv').config();
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const cors        = require('cors');
+const helmet      = require('helmet');
 
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
@@ -19,6 +20,13 @@ const dnsPrefetchControl = require("dns-prefetch-control");
 
 // Set X-DNS-Prefetch-Control: off
 app.use(dnsPrefetchControl());
+
+// referrer policy: Only allow your site to send the referrer for your own pages.
+app.use(
+  helmet.referrerPolicy({
+    policy: ["same-origin"],
+  })
+);
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
