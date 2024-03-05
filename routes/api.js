@@ -164,9 +164,9 @@ module.exports = function (app) {
           throw new Error("Thread not found.")
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         // return empty data
-        res.json({ error: error });
+        res.json({ error: error.message });
       }
     });
 
