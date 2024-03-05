@@ -318,8 +318,6 @@ module.exports = function (app) {
             bumped_on: current_datetime
           };
           await Reply.findOneAndUpdate(reply_condition, update);
-          // thread.bumped_on = current_datetime;
-          // await thread.save();
           res.send("success");
           return;
         } else {
