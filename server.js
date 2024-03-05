@@ -3,12 +3,30 @@ require('dotenv').config();
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const cors        = require('cors');
+const helmet      = require('helmet');
 
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
 const app = express();
+
+// use framegard. Default: SAMEORIGIN.
+const frameguard = require("frameguard");
+app.use(frameguard({ action: 'sameorigin' }));
+
+// use 'dns-prefetch-control' instead of helmet.dnsPrefetchControl().
+const dnsPrefetchControl = require("dns-prefetch-control");
+
+// Set X-DNS-Prefetch-Control: off
+app.use(dnsPrefetchControl());
+
+// referrer policy: Only allow your site to send the referrer for your own pages.
+app.use(
+  helmet.referrerPolicy({
+    policy: ["same-origin"],
+  })
+);
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -36,7 +54,7 @@ app.route('/')
 //For FCC testing purposes
 fccTestingRoutes(app);
 
-//Routing for API 
+//Routing for API
 apiRoutes(app);
 
 //404 Not Found Middleware
